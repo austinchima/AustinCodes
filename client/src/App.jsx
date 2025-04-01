@@ -13,16 +13,17 @@ import { FaCode } from "react-icons/fa";
 import { FaServer } from "react-icons/fa";
 import { FaReact } from "react-icons/fa";
 import { FaNodeJs } from "react-icons/fa";
-import { FaPython } from "react-icons/fa";
+import { FaDesktop } from "react-icons/fa";
 import { FaHtml5 } from "react-icons/fa";
 import { FaCss3 } from "react-icons/fa";
 import { FaJs } from "react-icons/fa";
-import { FaBootstrap } from "react-icons/fa";
+import { SiMongodb } from "react-icons/si";
 import { FaDatabase } from "react-icons/fa";
 import { FaMobileAlt } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { FaCodeBranch } from "react-icons/fa";
 import school_management_system from './assets/school_task_management_application_dashboard.png';
+import resume from './assets/Austin Chima - Resume.pdf'; // Import your resume file
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -60,8 +61,14 @@ function App() {
     setActiveSection(currentSection);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const { name, email, subject, message } = formData;
+    const mailtoLink = `mailto:austinchima515@gmail.com,chimmaustin2@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+
+    window.location.href = mailtoLink;
+
     setModalMessage('Thank you for your message! I will get back to you soon.');
     setShowModal(true);
     setFormData({ name: '', email: '', subject: '', message: '' });
@@ -157,6 +164,9 @@ function App() {
             <a href="#contact" className="btn">
               Get in Touch
             </a>
+            <a href={resume} className="btn-resume" download="Austin_Chima_Resume.pdf">
+              Download Resume
+            </a>
           </div>
         </div>
       </section>
@@ -206,18 +216,22 @@ function App() {
           <h2>Skills & Expertise</h2>
           <div className="skills-grid">
             {[
-              { name: 'Frontend Development', icon: FaCode, items: ['React'] },
-              { name: 'Backend Development', icon: FaServer, items: ['Node.js', 'Express.js'] },
+              { name: 'Frontend Development', icons: [FaReact, FaHtml5, FaCss3, FaJs], items: ['React'] },
+              { name: 'Backend Development', icons: [FaServer], items: ['Node.js', 'Express.js'] },
               // { name: 'UI/UX Design', icon: 'fa-palette', items: ['Figma', 'Adobe XD', 'Sketch'] },
               // { name: 'Cloud Services', icon: 'fa-cloud', items: ['AWS', 'Azure', 'GCP'] },
-              { name: 'Database', icon: FaDatabase, items: ['MongoDB', 'MySQL', 'Oracle'] },
+              { name: 'Database', icons: [FaDatabase, SiMongodb], items: ['MongoDB', 'MySQL', 'Oracle'] },
               // { name: 'DevOps', icon: 'fa-tools', items: ['Docker', 'Kubernetes', 'CI/CD'] },
-              { name: 'Mobile Development', icon: FaMobileAlt, items: ['Kotlin', 'Jetpack Compose'] },
+              { name: 'Mobile Development', icons: [FaMobileAlt], items: ['Kotlin', 'Jetpack Compose'] },
               // { name: 'Testing', icon: 'fa-vial', items: ['Jest', 'Cypress', 'Selenium'] }
-              { name: 'Version Control', icon: FaCodeBranch, items: ['Git', 'GitHub'] }
+              { name: 'Version Control', icons: [FaCodeBranch], items: ['Git', 'GitHub'] },
+              { name: 'Desktop Development', icons: [FaDesktop], items: ['C#'] }
+
             ].map((skill, index) => (
               <div key={index} className="skill-card">
-                <skill.icon />
+                {skill.icons && skill.icons.map((Icon, iconIndex) => (
+                  <Icon key={iconIndex} />
+                ))}
                 <h3>{skill.name}</h3>
                 <ul>
                   {skill.items.map((item, i) => (
@@ -239,7 +253,7 @@ function App() {
           <div className="projects-grid">
             {[
               {
-                title: 'Student Personal Course Management System',
+                title: 'School Management System',
                 description: 'Online course management platform for students to manage deadlines and projects',
                 image: school_management_system, // Access the imported image
                 tech: ['React', 'Node.js', 'MongoDB']

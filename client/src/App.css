@@ -208,9 +208,9 @@ body, .app-container {
 }
 
 .hero-text img:hover {
-  transform: scale(0.5);
+  transform: scale(1.3);
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .hero-subtitle {
@@ -305,6 +305,39 @@ a .btn {
   transform: scale(1.1);
 }
 
+/* RESUME BUTTON */
+.btn-resume{
+  margin-left: 20px;
+  margin-top: 10px; 
+  padding: 10px 10px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff;
+  text-shadow: none;
+  background: transparent;
+  cursor:pointer;
+  box-shadow: transparent;
+  border: 3px solid #ffffff5b;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.btn-resume:hover {
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+  background: linear-gradient(145deg, #2f8d17, #017e7e98);
+  box-shadow: 1 0 0 2px #ffffff, 0 0 0 4px #23ebebfb;
+  transition: background 0.3s ease, box-shadow 0.3s ease; /* Added transition for a smoother effect */
+}
+
+
+
+.btn-resume:active {
+  transform: scale(1.1);
+}
+
 
 
 /* SECTION CONTAINER */
@@ -385,11 +418,15 @@ h2 {
 .skill-card:hover {
   background: rgba(0, 0, 0, 0.5);
 }
-.skill-card i {
-  font-size: 2rem;
-  color: #0e7490;
+.skill-card svg {
+  padding-right: 5%;
   margin-bottom: 16px;
+  font-size: 200%; /* Adjust the size as needed */
+  margin-bottom: 10px; /* Add some spacing between the icon and the heading */
+  color: cyan; /* Adjust the color as needed */
 }
+
+
 .skill-card h3 {
   font-size: 1.25rem;
   margin-bottom: 16px;
@@ -434,6 +471,7 @@ h2 {
   transition: transform 0.3s ease;
   box-sizing: border-box; /* Add box-sizing */
 }
+
 .project-card:hover .project-image img {
   transform: scale(1.1);
 }
@@ -449,7 +487,7 @@ h2 {
   box-sizing: border-box; /* Add box-sizing */
 }
 .tech-badge {
-  background: #0369a1;
+  background: rgba(0, 255, 255, 0.308);
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 0.875rem;
@@ -620,4 +658,26 @@ h2 {
     font-size: 1.75rem; /* Even smaller heading on very small screens */
     margin-bottom: 16px;
   }
+}
+
+/* RESUME DOWNLOAD SECTION */
+.resume-download {
+  text-align: center;
+  margin-left: 40px;
+  margin-top: 40px;
+}
+
+.resume-download a {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #0e7490;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.resume-download a:hover {
+  background-color: #0369a1;
 }
