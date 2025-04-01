@@ -148,7 +148,7 @@ body, .app-container {
   color: #ffffff;
   /* background-color: white; */
   margin: 3px 0;
-  transition: 0.4s;
+  transition: transform 0.1s ease, opacity 0.1s ease; /* Add transition for smooth animation */
 }
 
 /* Media query for small tablets and smaller */
@@ -170,11 +170,13 @@ body, .app-container {
     justify-content: center; /* Center the nav-links vertically */
     height: 0; /* Start with height 0 */
     overflow: hidden; /* Hide overflow content */
-    transition: height 0.6s ease; /* Smooth transition for height */
+    transition: height 0.6s ease, opacity 0.3s ease; /* Smooth transition for height */
+    opacity: 0; /* Initially hide the menu */
   }
 
   .navbar-links.active {
     height: auto; /* Expand to fit content */
+    opacity: 1; /* Fade in the menu */
   }
 
   .nav-link {
@@ -193,6 +195,18 @@ body, .app-container {
   .navbar-social {
     display: none; /* Hide social icons on smaller screens */
   }
+}
+
+.navbar-toggle.active .bar:nth-child(1) {
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.navbar-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggle.active .bar:nth-child(3) {
+  transform: rotate(45deg) translate(-6px, -6px);
 }
 
 /* HERO SECTION */
@@ -415,39 +429,55 @@ h2 {
 .about {
   padding: 40px 0;
   /* background: linear-gradient(to bottom right, #000, #0891b2, #374151); */
-  box-sizing: border-box; /* Add box-sizing */
+  box-sizing: border-box;
 }
+
 .about-content {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
-  box-sizing: border-box; /* Add box-sizing */
+  box-sizing: border-box;
+  justify-content: center; /* Center the content */
 }
+
 .about-text,
-.about-achievements {
+.about-interests {
   flex: 1;
   min-width: 300px;
-  box-sizing: border-box; /* Add box-sizing */
+  box-sizing: border-box;
 }
-.about-achievements .achievement {
+
+.about-interests {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+}
+
+.about-interests .achievement {
   background: rgba(0, 0, 0, 0.3);
   padding: 24px;
   border-radius: 8px;
-  box-sizing: border-box; /* Add box-sizing */
+  box-sizing: border-box;
+  width: 80%; /* Limit the width of the achievement cards */
+  max-width: 400px; /* Set a maximum width if needed */
+  margin-bottom: 16px; /* Add some spacing between cards */
 }
-.about-achievements ul {
+
+.about-interests ul {
   list-style: none;
   padding: 0;
-  box-sizing: border-box; /* Add box-sizing */
+  box-sizing: border-box;
 }
-.about-achievements li {
+
+.about-interests li {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-  box-sizing: border-box; /* Add box-sizing */
+  box-sizing: border-box;
 }
-.about-achievements i {
-  color: #0e7490;
+
+.about-interests i {
+  color: cyan;
   margin-right: 8px;
 }
 
@@ -457,7 +487,8 @@ h2 {
     padding: 0 20px; /* Reduce padding on smaller screens */
   }
 
-  .achievement {
+  .interest {
+    
     width: 100%; /* Reduce the width of the cards */
     margin: 0 auto; /* Center the cards */
   }
@@ -574,11 +605,55 @@ h2 {
   box-sizing: border-box; /* Add box-sizing */
 }
 .tech-badge {
-  background: rgba(0, 255, 255, 0.308);
+  background: linear-gradient(to bottom right, #000, #0891b2, #374151);
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 0.875rem;
   box-sizing: border-box; /* Add box-sizing */
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  z-index: 1;
+}
+
+.tech-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #123844, #23ebebb9);
+  transition: left 0.5s ease;
+  z-index: -1;
+  animation: techBadgeAnimation 5s linear infinite;
+}
+
+.tech-badge:hover::before {
+  left: 0;
+}
+
+@keyframes techBadgeAnimation {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.tech-badge::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 12px;
+  background: linear-gradient(45deg, #00a5a581, #123844, #23ebeb81);
+  z-index: -2;
+  opacity: 1;
+  animation: lightRing 10s linear infinite;
 }
 
 /* TESTIMONIALS SECTION */
@@ -688,7 +763,7 @@ h2 {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(145deg, #123844, #23ebebb9);
+  background: linear-gradient(45deg, #123844, #23ebebb9);
   transition: left 0.5s ease;
   z-index: -1;
 }
@@ -727,7 +802,7 @@ h2 {
 
 .footer-social {
   display: flex;
-  gap: 20px;
+  gap: 30px;
 }
 
 .footer-social a {

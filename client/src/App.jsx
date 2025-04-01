@@ -5,7 +5,7 @@ import 'swiper/css/pagination';
 import './App.css';
 import portrait from './assets/portrait.jpg';
 import { SlMenu } from "react-icons/sl";
-import { FaGithub } from "react-icons/fa";
+import { FaCode, FaGithub, FaHeadphones, FaLaptopCode, FaMusic, FaNode, FaRocket } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaServer } from "react-icons/fa";
@@ -122,20 +122,21 @@ function App() {
       if (event.ctrlKey && event.altKey) {
         let sectionId = '';
         switch (event.key) {
-          case 'h':
-            sectionId = 'home';
-            break;
-          case 'a':
-            sectionId = 'about';
-            break;
-          case 'p':
-            sectionId = 'projects';
-            break;
-          case 's':
-            sectionId = 'skills';
-            break;
-          case 'c':
-            sectionId = 'contact';
+
+          case 'h'.toLowerCase():
+              sectionId = 'home';
+              break;
+          case 'a'.toLowerCase():
+              sectionId = 'about';
+              break;
+          case 'p'.toLowerCase():
+              sectionId = 'projects';
+              break;
+          case 's'.toLowerCase():
+              sectionId = 'skills';
+              break;
+          case 'c'.toLowerCase():
+              sectionId = 'contact';
             break;
           default:
             return; // Exit if the key is not one of the specified ones
@@ -178,17 +179,17 @@ function App() {
           <nav className="navbar">
             <div className="navbar-container">
               <div className="navbar-brand">
-                <img src={logo} alt="Logo" style={{ width: '50px', marginRight: '10px' }} />
+                <img src={logo} alt="Logo" style={{ width: '56px', marginRight: '10px' }} />
                 <Link
                   to="home"
                   smooth={true}
-                  duration={500}>AustinCodes™
+                  duration={500}>AustinCodes
                 </Link>
               </div>
 
               {/* Hamburger Menu */}
               {isSmallScreen && (
-                <button className="hamburger-menu" onClick={toggleMenu}>
+                <button className={`hamburger-menu ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
                   <SlMenu />
                 </button>
               )}
@@ -254,30 +255,30 @@ function App() {
               <div className="about-content">
                 <div className="about-text">
                   <p>
-                    As a passionate Software Engineering student, I'm dedicated to learning and applying modern development practices to create responsive, user-friendly applications. My journey in tech began with my love for problem-solving and has evolved into a deep passion for software development.
+                    As an aspiring software engineer dedicated to crafting elegant, minimalistic web experiences. I thrive on the challenge of blending clean design with seamless functionality, always pushing myself to explore emerging technologies and refine my craft.
                   </p>
                   <p>
-                    Through academic projects and personal initiatives, I've gained hands-on experience with various technologies and frameworks. I'm constantly exploring new technologies and best practices to expand my skill set and prepare for a career in software development.
+                  When I'm not coding, I dive into the creative world of music. I produce and enjoy melodic bass within the EDM genre, a pursuit that fuels my creative energy and influences my approach to problem-solving. This unique fusion of technical expertise and artistic passion defines my journey and drives me to innovate with every project.
                   </p>
                 </div>
-                <div className="about-achievements">
-                  <div className="achievement">
-                    <h3>Academic Achievements</h3>
+                <div className="about-interests">
+                  <div className="interest">
+                    <h3>Interests & Hobbies</h3>
                     <ul>
                       <li>
-                        <i className="fas fa-check-circle">
-                          <span className="sr-only"><FaCheckCircle /></span>
-                          </i> Dean's List for Academic Excellence 2024-2025
+                        <i className="fas fa-music">
+                          <span className="sr-only"><FaHeadphones/></span>
+                          </i> Music Production (EDM)
                       </li>
                       <li>
-                        <i className="fas fa-check-circle">
-                        <span className="sr-only"><FaCheckCircle /></span>
-                          </i> Lead Developer in University Hackathon Team
+                        <i className="fas fa-rocket">
+                        <span className="sr-only"><FaRocket /></span>
+                          </i> Exploring New Music Genres
                       </li>
                       <li>
-                        <i className="fas fa-check-circle">
-                        <span className="sr-only"><FaCheckCircle /></span>
-                        </i> Active member of Computer Science Student Society
+                        <i className="fas fa-laptop-code">
+                        <span className="sr-only"><FaLaptopCode /></span>
+                        </i> Learning New Technologies
                       </li>
                     </ul>
                   </div>
