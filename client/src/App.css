@@ -101,6 +101,7 @@ body, .app-container {
   text-transform: capitalize;
   text-decoration: none;
   color: white;
+  text-shadow: #0e7490;
   position: relative;
   transition: color 0.3s ease;
 }
@@ -699,4 +700,24 @@ h2 {
 
 .resume-download a:hover {
   background-color: #0369a1;
+}
+
+/* Add this to your existing CSS */
+.hamburger-menu-links {
+    display: flex;
+    flex-direction: column; /* Stack the icons vertically */
+    align-items: center; /* Center the icons */
+    background: rgba(0, 0, 0, 0.8); /* Background for the menu */
+    padding: 10px; /* Add some padding */
+    position: absolute; /* Position it absolutely */
+    top: 50px; /* Adjust based on navbar height */
+    left: 0;
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.hamburger-menu-links a {
+    color: white; /* Icon color */
+    margin: 10px 0; /* Space between icons */
+    font-size: 24px; /* Adjust icon size */
 }

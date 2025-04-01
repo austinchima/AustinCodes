@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import './App.css';
 import portrait from './assets/portrait.jpg';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { SlMenu } from "react-icons/sl";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
@@ -41,15 +41,28 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
 
-    const { name, email, subject, message } = formData;
-    const mailtoLink = `mailto:austinchima515@gmail.com,chimmaustin2@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-
-    window.location.href = mailtoLink;
-
-    setModalMessage('Thank you for your message! I will get back to you soon.');
-    setShowModal(true);
-    setFormData({ name: '', email: '', subject: '', message: '' });
+        if (response.ok) {
+            setModalMessage('Thank you for your message! I will get back to you soon.');
+            setShowModal(true);
+            setFormData({ name: '', email: '', subject: '', message: '' });
+        } else {
+            setModalMessage('Failed to send message. Please try again later.');
+            setShowModal(true);
+        }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        setModalMessage('An error occurred. Please try again later.');
+        setShowModal(true);
+    }
   };
 
   const handleScroll = () => {
@@ -102,7 +115,7 @@ function App() {
           {/* Hamburger Menu */}
           {isSmallScreen && (
             <button className="hamburger-menu" onClick={toggleMenu}>
-              <GiHamburgerMenu />
+              <SlMenu />
             </button>
           )}
 
@@ -388,7 +401,7 @@ function App() {
       <footer className="footer">
         <div className="section-container footer-container">
           <div className="footer-text">
-            <p>&copy; 2025 James Anderson. All rights reserved.</p>
+            <p>&copy; 2025 Austin Chima. All rights reserved.</p>
           </div>
           <div className="footer-social">
             <a href="https://github.com/austinchima" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub Profile">
