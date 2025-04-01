@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -9,10 +9,8 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
-import { FaCode } from "react-icons/fa";
 import { FaServer } from "react-icons/fa";
 import { FaReact } from "react-icons/fa";
-import { FaNodeJs } from "react-icons/fa";
 import { FaDesktop } from "react-icons/fa";
 import { FaHtml5 } from "react-icons/fa";
 import { FaCss3 } from "react-icons/fa";
@@ -24,6 +22,8 @@ import { FaArrowRight } from "react-icons/fa";
 import { FaCodeBranch } from "react-icons/fa";
 import school_management_system from './assets/school_task_management_application_dashboard.png';
 import resume from './assets/Austin Chima - Resume.pdf'; // Import your resume file
+import logo from './assets/personal-brand.png';
+import { Link} from 'react-scroll';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -38,28 +38,6 @@ function App() {
   const sections = ['home', 'about', 'skills', 'projects', 'contact'];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-  const sectionRefs = useRef({});
-
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    let currentSection = 'home'; // Default to home
-
-    sections.forEach(section => {
-      const element = sectionRefs.current[section];
-      if (element) {
-        const { offsetTop, offsetHeight } = element;
-        // Adjust the offsetTop value to fine-tune the active section
-        const activationOffset = 100; // You can adjust this value as needed
-        if (
-          scrollPosition >= offsetTop - activationOffset &&
-          scrollPosition < offsetTop + offsetHeight - activationOffset
-        ) {
-          currentSection = section;
-        }
-      }
-    });
-    setActiveSection(currentSection);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,30 +52,35 @@ function App() {
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    sections.forEach(section => {
+      const element = document.getElementById(section);
+      if (element) {
+        const { offsetTop, offsetHeight } = element;
+        if (scrollPosition >= offsetTop - 100 && scrollPosition < offsetTop + offsetHeight - 100) {
+          setActiveSection(section);
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth <= 768);
     };
 
-    window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', checkScreenSize); // Update on resize
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', checkScreenSize);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const scrollToSection = (section) => {
-    const element = sectionRefs.current[section];
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
   };
 
   return (
@@ -106,7 +89,14 @@ function App() {
       <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-brand">
-            <a href="#home">Austin Chima</a>
+            <img src={logo} alt="Logo" style={{ width: '10%', marginRight: '10px' }} />
+            <Link
+              to="home"
+              smooth={true}
+              duration={500}
+            >
+              Austin Chima
+            </Link>
           </div>
 
           {/* Hamburger Menu */}
@@ -118,14 +108,16 @@ function App() {
 
           <div className={`navbar-links ${isMenuOpen && isSmallScreen ? 'active' : ''} ${isSmallScreen ? 'mobile' : ''}`}>
             {sections.map(section => (
-              <a
+              <Link
                 key={section}
-                href={`#${section}`}
+                to={section}
+                smooth={true}
+                duration={500}
                 className={`nav-link ${activeSection === section ? 'active' : ''}`}
-                onClick={() => scrollToSection(section)}
+                onClick={() => setIsMenuOpen(false)}
               >
                 {section}
-              </a>
+              </Link>
             ))}
           </div>
           <div className={`navbar-social ${isMenuOpen && isSmallScreen ? 'active' : ''} ${isSmallScreen ? 'mobile' : ''}`}>
@@ -147,7 +139,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="hero" ref={el => sectionRefs.current['home'] = el}>
+      <section id="home" className="hero">
         <div className="hero-container">
           <div className="hero-text">
             <img src={portrait} alt="Portrait" />
@@ -161,9 +153,9 @@ function App() {
             <p className="hero-description">
               Transforming ideas into elegant, functional digital experiences with a passion for clean code and intuitive design.
             </p>
-            <a href="#contact" className="btn">
+            <Link to="contact" smooth={true} duration={500} className="btn">
               Get in Touch
-            </a>
+            </Link>
             <a href={resume} className="btn-resume" download="Austin_Chima_Resume.pdf">
               Download Resume
             </a>
@@ -172,7 +164,7 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="about" ref={el => sectionRefs.current['about'] = el}>
+      <section id="about" className="about">
         <div className="section-container">
           <h2>About Me</h2>
           <div className="about-content">
@@ -211,7 +203,7 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="skills" ref={el => sectionRefs.current['skills'] = el}>
+      <section id="skills" className="skills">
         <div className="section-container">
           <h2>Skills & Expertise</h2>
           <div className="skills-grid">
@@ -247,7 +239,7 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="projects" ref={el => sectionRefs.current['projects'] = el}>
+      <section id="projects" className="projects">
         <div className="section-container">
           <h2>Featured Projects</h2>
           <div className="projects-grid">
@@ -296,7 +288,7 @@ function App() {
       </section>
 {/*
       
-      <section id="testimonials" className="testimonials" ref={el => sectionRefs.current['testimonials'] = el}>
+      <section id="testimonials" className="testimonials">
         <div className="section-container">
           <h2>Client Testimonials</h2>
           <Swiper
@@ -354,7 +346,7 @@ function App() {
       */}
 
       {/* Contact Section */}
-      <section id="contact" className="contact" ref={el => sectionRefs.current['contact'] = el}>
+      <section id="contact" className="contact">
         <div className="section-container">
           <h2>Get in Touch</h2>
           <div className="contact-form-container">
