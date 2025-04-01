@@ -43,7 +43,7 @@ function App() {
     e.preventDefault();
     try {
       console.log('Form Data:', formData);
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch('/.netlify/functions/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -258,7 +258,7 @@ function App() {
                     As an aspiring software engineer dedicated to crafting elegant, minimalistic web experiences. I thrive on the challenge of blending clean design with seamless functionality, always pushing myself to explore emerging technologies and refine my craft.
                   </p>
                   <p>
-                  When I'm not coding, I dive into the creative world of music. I produce and enjoy melodic bass within the EDM genre, a pursuit that fuels my creative energy and influences my approach to problem-solving. This unique fusion of technical expertise and artistic passion defines my journey and drives me to innovate with every project.
+                  When I'm not coding, I dive into the creative world of music. I'm learning to produce and enjoy melodic bass within the EDM genre, a pursuit that fuels my creative energy and influences my approach to problem-solving. This unique fusion of technical expertise and artistic passion defines my journey and drives me to innovate with every project.
                   </p>
                 </div>
                 <div className="about-interests">

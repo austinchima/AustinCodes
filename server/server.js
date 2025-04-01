@@ -4,18 +4,22 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const morgan = require('morgan');
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://austincodes.netlify.app', // Replace with your frontend domain
+  credentials: true
+}));
 
 // Apply rate limiting to the contact form
 const contactFormLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 6, // Limit each IP to 5 requests per windowMs
-    message: 'Too many requests from this IP, please try again later.'
+    max: 6, // Limit each IP to 6 requests per windowMs
+    message: 'Too many requests from this IP at this time. Please try again later ^_^.'
 });
 
 // Input validation middleware
@@ -124,6 +128,8 @@ app.get('/test', (req, res) => {
 
 console.log('\nEmail User:', process.env.EMAIL_USER);
 console.log('\nEmail Pass:', process.env.EMAIL_PASS);
+
+app.use(morgan('combined'));
 
 app.listen(port, () => {
     console.log(`\nServer is running on port ${port}`);
