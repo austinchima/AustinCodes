@@ -1,21 +1,4 @@
-html,body {
-  background: linear-gradient(to bottom right, #000, #0891b2, #374151);
-  background-size: 400% 400%;
-  min-height: 100vh;
+html, body {
+  margin: 0;
+  padding: 0;
 }
-
-
-
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-  
