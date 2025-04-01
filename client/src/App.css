@@ -87,7 +87,7 @@ body, .app-container {
 }
 .navbar-links {
   display: flex;
-  gap: 2%; /* Adjust gap between nav links */
+  gap: 12px; /* Adjust gap between nav links */
 }
 .nav-link {
   text-transform: capitalize;
@@ -121,9 +121,9 @@ body, .app-container {
   color: cyan;
 }
 .navbar-social {
-  display: flex;
-  gap: 30px; /* Space between social icons */
-  margin-left: 20px; /* Adjust margin to provide space */
+  margin-left: 10px;
+  display: flex; /* Show social icons on larger screens */
+  gap: 20px; /* Space between icons */
 }
 .social-icon {
   color: white; /* Icon color */
@@ -136,7 +136,7 @@ body, .app-container {
 
 /* Hamburger menu styles (initially hidden) */
 .navbar-toggle {
-  display: none; /* Hidden by default */
+  display: flex; /* Show the hamburger icon */
   flex-direction: column;
   cursor: pointer;
   padding: 10px;
@@ -188,6 +188,10 @@ body, .app-container {
 
   .navbar-brand {
     margin-left: -20px; /* Move the brand name and logo to the left */
+  }
+
+  .navbar-social {
+    display: none; /* Hide social icons on smaller screens */
   }
 }
 
@@ -889,4 +893,43 @@ h2 {
   z-index: 1000; /* Ensure it appears above other elements */
   color: white; /* Ensure the icon color is white */
   font-size: 24px; /* Adjust icon size */
+}
+
+/* Style adjustments to incorporate social icons into the hamburger menu */
+@media (max-width: 768px) {
+  .navbar-social {
+    display: none; /* Initially hide social icons from the navbar */
+  }
+
+  .navbar-links.active {
+    height: auto; /* Expand to fit content */
+    display: flex; /* Ensure it's a flex container */
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .hamburger-menu-links {
+    display: flex; /* Ensure it's a flex container */
+    flex-direction: row; /* Align items horizontally */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    padding: 10px 0; /* Add some padding */
+  }
+
+  .hamburger-menu-links a {
+    color: white; /* Icon color */
+    margin: 0 10px; /* Space between icons */
+    font-size: 24px; /* Adjust icon size */
+  }
+
+  .navbar-links.active .hamburger-menu-links {
+    display: flex; /* Show the social icons when the menu is active */
+  }
+}
+
+.hamburger-menu-links {
+  display: flex; /* Show social icons in a row */
+  flex-direction: row; /* Align items in a row */
+  justify-content: center; /* Center the icons horizontally */
+  align-items: center; /* Center the icons vertically */
+  gap: 30px; /* Space between icons */
 }

@@ -182,9 +182,7 @@ function App() {
                 <Link
                   to="home"
                   smooth={true}
-                  duration={500}
-                >
-                  Austin Chima
+                  duration={500}>AustinCodes™
                 </Link>
               </div>
 
@@ -209,16 +207,15 @@ function App() {
                   </Link>
                 ))}
                 {/* Social Icons */}
-                {isMenuOpen && isSmallScreen && (
-                  <div className="hamburger-menu-links">
-                    <a href="https://github.com/austinchima" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub Profile">
-                      <FaGithub className="social-icon" />
-                    </a>
-                    <a href="https://linkedin.com/in/austin-chima7364552/" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile">
-                      <FaLinkedin className="social-icon" />
-                    </a>
-                  </div>
-                )}
+                <div className={`navbar-social ${isSmallScreen ? 'hamburger-menu-links' : ''}`}>
+                <a href="https://github.com/austinchima" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub Profile">
+                  <FaGithub className="social-icon" />
+                </a>
+                <a href="https://linkedin.com/in/austin-chima7364552/" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile">
+                  <FaLinkedin className="social-icon" />
+                </a>
+                </div>
+                
               </div>
             </div>
           </nav>

@@ -76,7 +76,7 @@ app.post('/api/contact', contactFormLimiter, validateContactForm, async (req, re
 
                     try {
                         await transporter.sendMail(testMailOptions);
-                        console.log('Test email sent successfully');
+                        console.log('\nTest email sent successfully');
                     } catch (error) {
                         console.error('Error sending test email:', error);
                     }
@@ -88,8 +88,8 @@ app.post('/api/contact', contactFormLimiter, validateContactForm, async (req, re
 
         // Define the email options for the message to you (admin email)
         const mailToAdminOptions = {
-            from: email,
-            to: 'austinchima515@gmail.com, chimmaustin2@gmail.com',
+            from: email, // Allow any email to be the sender
+            to: 'austinchima515@gmail.com, chimaaustin2@gmail.com', // Your admin email addresses
             subject: subject,
             text: `Name: ${name}\nEmail: ${email}\n\n${message}`
         };
@@ -98,7 +98,7 @@ app.post('/api/contact', contactFormLimiter, validateContactForm, async (req, re
         const confirmationMailOptions = {
             from: process.env.EMAIL_USER, // Use your email for confirmation
             to: email, // Send confirmation to the user's email
-            subject: 'Thank you for contacting Austin Chima Portfolio',
+            subject: 'Thank you for contacting AustinCodes',
             text: `Dear ${name},\n\nThank you for reaching out! Your message has been received and I will get back to you as soon as possible.\n\nHere is a copy of your message:\n\nSubject: ${subject}\nMessage: ${message}\n\nBest regards,\nAustin Chima`
         };
 
@@ -122,9 +122,9 @@ app.get('/test', (req, res) => {
     res.send('Server is reachable!');
 });
 
-console.log('Email User:', process.env.EMAIL_USER);
-console.log('Email Pass:', process.env.EMAIL_PASS);
+console.log('\nEmail User:', process.env.EMAIL_USER);
+console.log('\nEmail Pass:', process.env.EMAIL_PASS);
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`\nServer is running on port ${port}`);
 }); 
