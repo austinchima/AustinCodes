@@ -52,7 +52,7 @@ function App() {
       if (response.ok) {
         toast.success('Thank you for your message! I will get back to you soon.', {
           position: "bottom-right",
-          autoClose: 10000,
+          autoClose: 5050,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -64,7 +64,7 @@ function App() {
       } else {
         toast.error('Failed to send message. Please try again later.', {
           position: "bottom-right",
-          autoClose: 10000,
+          autoClose: 5050,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -77,7 +77,7 @@ function App() {
       console.error('Error submitting form:', error);
       toast.error('An error occurred. Please try again later.', {
         position: "bottom-center",
-        autoClose: 5000,
+        autoClose: 10000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
