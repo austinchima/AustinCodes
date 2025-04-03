@@ -11,15 +11,15 @@ const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'https://austincodes.netlify.app', // Replace with your frontend domain
+  origin: 'https:/austincodes.netlify.app/', // Replace with your frontend domain
   credentials: true
 }));
 
-// Apply rate limiting to the contact form
+// Apply rate limiting to the contact formF
 const contactFormLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 6, // Limit each IP to 6 requests per windowMs
-    message: 'Too many requests from this IP at this time. Please try again later ^_^.'
+    message: 'Too many requests from this IP at this time. Please try again later ^_^'
 });
 
 // Input validation middleware
@@ -102,7 +102,7 @@ app.post('/api/contact', contactFormLimiter, validateContactForm, async (req, re
         const confirmationMailOptions = {
             from: process.env.EMAIL_USER, // Use your email for confirmation
             to: email, // Send confirmation to the user's email
-            subject: 'Thank you for contacting AustinCodes',
+            subject: `Thank you, ${name} for contacting Austin @ AustinCodes`,
             text: `Dear ${name},\n\nThank you for reaching out! Your message has been received and I will get back to you as soon as possible.\n\nHere is a copy of your message:\n\nSubject: ${subject}\nMessage: ${message}\n\nBest regards,\nAustin Chima`
         };
 
@@ -117,7 +117,7 @@ app.post('/api/contact', contactFormLimiter, validateContactForm, async (req, re
         res.status(200).send({ message: 'Message sent successfully!' }); // Success response to client
 
     } catch (error) {
-        console.error('Error sending email:', error); // Detailed error logging
+        console.error('Error sending email:', error.message);
         res.status(500).send({ message: 'Failed to send message. Please try again later.' }); // User-friendly error response
     }
 });

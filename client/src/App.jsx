@@ -5,21 +5,18 @@ import 'swiper/css/pagination';
 import './App.css';
 import portrait from './assets/portrait.jpg';
 import { SlMenu } from "react-icons/sl";
-import { FaCode, FaGithub, FaHeadphones, FaLaptopCode, FaMusic, FaNode, FaRocket } from "react-icons/fa";
+import { FaGithub, FaHeadphones, FaLaptopCode, FaRocket, FaTools } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
-import { FaCheckCircle } from "react-icons/fa";
 import { FaServer } from "react-icons/fa";
 import { FaReact } from "react-icons/fa";
 import { FaDesktop } from "react-icons/fa";
-import { FaHtml5 } from "react-icons/fa";
-import { FaCss3 } from "react-icons/fa";
-import { FaJs } from "react-icons/fa";
 import { SiMongodb } from "react-icons/si";
 import { FaDatabase } from "react-icons/fa";
 import { FaMobileAlt } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { FaCodeBranch } from "react-icons/fa";
 import school_management_system from './assets/school_task_management_application_dashboard.png';
+import mind_mapping_demo from './assets/mind_mapping_demo.png';
 import resume from './assets/Austin Chima - Resume.pdf'; // Import your resume file
 import logo from './assets/personal-brand.png';
 import { Link} from 'react-scroll';
@@ -38,12 +35,13 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
   const [loading, setLoading] = useState(true);
+ // State for fade-in effect
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       console.log('Form Data:', formData);
-      const response = await fetch('/.netlify/functions/contact', {
+      const response = await fetch('http://localhost:5000/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,8 +51,8 @@ function App() {
 
       if (response.ok) {
         toast.success('Thank you for your message! I will get back to you soon.', {
-          position: "bottom-center",
-          autoClose: 5000,
+          position: "bottom-right",
+          autoClose: 10000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -65,8 +63,8 @@ function App() {
         setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form data
       } else {
         toast.error('Failed to send message. Please try again later.', {
-          position: "bottom-center",
-          autoClose: 5000,
+          position: "bottom-right",
+          autoClose: 10000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -209,14 +207,13 @@ function App() {
                 ))}
                 {/* Social Icons */}
                 <div className={`navbar-social ${isSmallScreen ? 'hamburger-menu-links' : ''}`}>
-                <a href="https://github.com/austinchima" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub Profile">
-                  <FaGithub className="social-icon" />
-                </a>
-                <a href="https://linkedin.com/in/austin-chima7364552/" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile">
-                  <FaLinkedin className="social-icon" />
-                </a>
+                  <a href="https://github.com/austinchima" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub Profile">
+                    <FaGithub className="social-icon" />
+                  </a>
+                  <a href="https://linkedin.com/in/austin-chima7364552/" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile">
+                    <FaLinkedin className="social-icon" />
+                  </a>
                 </div>
-                
               </div>
             </div>
           </nav>
@@ -258,7 +255,7 @@ function App() {
                     As an aspiring software engineer dedicated to crafting elegant, minimalistic web experiences. I thrive on the challenge of blending clean design with seamless functionality, always pushing myself to explore emerging technologies and refine my craft.
                   </p>
                   <p>
-                  When I'm not coding, I dive into the creative world of music. I'm learning to produce and enjoy melodic bass within the EDM genre, a pursuit that fuels my creative energy and influences my approach to problem-solving. This unique fusion of technical expertise and artistic passion defines my journey and drives me to innovate with every project.
+                  When I'm not coding, I dive into the creative world of music. I sharpen my music production skills enjoy listening to melodic bass music within the EDM genre, a pursuit that fuels my creative energy and influences my approach to problem-solving. This unique fusion of technical expertise and artistic passion defines my journey and drives me to innovate with every project.
                   </p>
                 </div>
                 <div className="about-interests">
@@ -278,7 +275,7 @@ function App() {
                       <li>
                         <i className="fas fa-laptop-code">
                         <span className="sr-only"><FaLaptopCode /></span>
-                        </i> Learning New Technologies
+                        </i> Learning New Technologies - to stay current
                       </li>
                     </ul>
                   </div>
@@ -293,16 +290,19 @@ function App() {
               <h2>Skills & Expertise</h2>
               <div className="skills-grid">
                 {[
-                  { name: 'Frontend Development', icons: [FaReact, FaHtml5, FaCss3, FaJs], items: ['React'] },
+                  { name: 'Frontend Development', icons: [FaReact], items: ['HTML, CSS', 'JavaScript','React'] },
+
                   { name: 'Backend Development', icons: [FaServer], items: ['Node.js', 'Express.js'] },
-                  // { name: 'UI/UX Design', icon: 'fa-palette', items: ['Figma', 'Adobe XD', 'Sketch'] },
-                  // { name: 'Cloud Services', icon: 'fa-cloud', items: ['AWS', 'Azure', 'GCP'] },
-                  { name: 'Database', icons: [FaDatabase, SiMongodb], items: ['MongoDB', 'MySQL', 'Oracle'] },
-                  // { name: 'DevOps', icon: 'fa-tools', items: ['Docker', 'Kubernetes', 'CI/CD'] },
-                  { name: 'Mobile Development', icons: [FaMobileAlt], items: ['Kotlin', 'Jetpack Compose'] },
-                  // { name: 'Testing', icon: 'fa-vial', items: ['Jest', 'Cypress', 'Selenium'] }
+                  
+                  { name: 'Database', icons: [FaDatabase, SiMongodb], items: ['MongoDB', 'Oracle'] },
+
+                  { name: 'Mobile Development', icons: [FaMobileAlt], items: ['Kotlin', 'Jetpack Compose', 'React'] },
+
                   { name: 'Version Control', icons: [FaCodeBranch], items: ['Git', 'GitHub'] },
-                  { name: 'Desktop Development', icons: [FaDesktop], items: ['.NET', 'C#'] }
+
+                  { name: 'Desktop Development', icons: [FaDesktop], items: ['․NET', 'C#','Java'] },
+
+                  { name: 'Development Tools', icons: [FaTools], items: ['Visual Studio', 'VS Code', 'Cursor', 'Copilot'] },
 
                 ].map((skill, index) => (
                   <div key={index} className="skill-card">
@@ -332,21 +332,24 @@ function App() {
                   {
                     title: 'School Management System',
                     description: 'Online course management platform for students to manage deadlines and projects',
-                    image: school_management_system, // Access the imported image
-                    tech: ['React', 'Node.js', 'MongoDB']
+                    image: school_management_system,
+                    tech: ['React', 'Node.js', 'MongoDB'],
+                    comingSoon: true
                   },
                   {
-                    title: 'Task Management App',
-                    description: 'Collaborative project management tool with real-time updates and analytics.',
-                    image: 'https://public.readdy.ai/ai/img_res/3a858c374cbaaa7855f8e11ff7dc4534.jpg',
-                    tech: ['Vue.js', 'Express', 'PostgreSQL']
+                    title: 'Note Taking App with Mind-Mapping',
+                    description: 'A note-taking application with the ability to convert notes to mind maps and vice versa.',
+                    image: mind_mapping_demo,
+                    tech: ['React', 'C#', 'MongoDB'],
+                    comingSoon: true
                   },
-                  {
-                    title: 'AI Content Platform',
-                    description: 'Content generation platform powered by machine learning algorithms.',
-                    image: 'https://public.readdy.ai/ai/img_res/aa085a4498f6b8e88cac15659f9f3a9b.jpg',
-                    tech: ['Python', 'TensorFlow', 'React']
-                  }
+                  // {
+                  //   title: 'AI Content Platform',
+                  //   description: 'Content generation platform powered by machine learning algorithms.',
+                  //   image: 'https://public.readdy.ai/ai/img_res/aa085a4498f6b8e88cac15659f9f3a9b.jpg',
+                  //   tech: ['Python', 'TensorFlow', 'React'],
+                  //   comingSoon: false
+                  // }
                 ].map((project, index) => (
                   <div key={index} className="project-card">
                     <div className="project-image">
@@ -360,6 +363,9 @@ function App() {
                           <span key={i} className="tech-badge">{tech}</span>
                         ))}
                       </div>
+                      {project.comingSoon && (
+                        <span className="coming-soon-badge">Coming Soon</span>
+                      )}
                       <button className="btn project-btn">
                         View Project <i className="fas fa-arrow-right">
                           <span className="sr-only"><FaArrowRight /></span>

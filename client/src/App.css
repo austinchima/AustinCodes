@@ -124,6 +124,7 @@ body, .app-container {
   margin-left: 10px;
   display: flex; /* Show social icons on larger screens */
   gap: 20px; /* Space between icons */
+  transition: margin-left 0.3s ease; /* Smooth transition for margin */
 }
 .social-icon {
   color: white; /* Icon color */
@@ -177,6 +178,29 @@ body, .app-container {
   .navbar-links.active {
     height: auto; /* Expand to fit content */
     opacity: 1; /* Fade in the menu */
+    animation: fadeIn 0.13s ease-in-out; /* Add fade-in animation */
+  }
+
+  .navbar-links:not(.active) {
+    animation: fadeOut 0.2s ease-in-out; /* Add fade-out animation */
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
   }
 
   .nav-link {
@@ -193,8 +217,18 @@ body, .app-container {
   }
 
   .navbar-social {
-    display: none; /* Hide social icons on smaller screens */
+    display: flex; /* Ensure social icons are displayed */
+    margin-left: auto; /* Push to the right */
   }
+}
+
+
+@media (max-width: 1130px) {
+  .navbar-social
+  {
+    padding-right: 3em; /* Makesall the nav-socials elements visible and not hidden*/
+  }
+  
 }
 
 .navbar-toggle.active .bar:nth-child(1) {
@@ -295,6 +329,10 @@ body, .app-container {
   .hero-buttons {
     flex-direction: column; /* Stack buttons vertically on smaller screens */
     gap: 10px; /* Reduce gap between buttons */
+  }
+
+  .hero {
+    margin-top: 80px; /* Adjust this value based on your navbar height */
   }
 }
 
@@ -413,10 +451,9 @@ body, .app-container {
 
 /* SECTION CONTAINER */
 .section-container {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 40px 16px;
+  padding: 46px;
   box-sizing: border-box; /* Add box-sizing */
+  align-items: center;
 }
 h2 {
   font-size: 2.5rem;
@@ -435,9 +472,9 @@ h2 {
 .about-content {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  /* gap: 20px; */
   box-sizing: border-box;
-  justify-content: center; /* Center the content */
+  justify-content:center; /* Center the content */
 }
 
 .about-text,
@@ -445,15 +482,18 @@ h2 {
   flex: 1;
   min-width: 300px;
   box-sizing: border-box;
+  word-break:normal;
 }
 
 .about-interests {
+  padding-left: 10px;
   display: flex;
   flex-direction: column;
   align-items: center; /* Center items horizontally */
+  
 }
 
-.about-interests .achievement {
+.about-interests .intetrests {
   background: rgba(0, 0, 0, 0.3);
   padding: 24px;
   border-radius: 8px;
@@ -494,19 +534,11 @@ h2 {
   }
 
   .skill-card {
-    padding: 0 20px; /* Reduce padding on smaller screens */
-  }
-
-  .skill-card {
-    width: 80%; /* Reduce the width of the cards */
-    margin: 0 auto; /* Center the cards */
+   
   }
 
   .project-card {
     padding: 0 20px; /* Reduce padding on smaller screens */
-  }
-
-  .project-card {
     width: 90%; /* Reduce the width of the cards */
     margin: 0 auto; /* Center the cards */
   }
@@ -605,14 +637,15 @@ h2 {
   box-sizing: border-box; /* Add box-sizing */
 }
 .tech-badge {
-  background: linear-gradient(to bottom right, #000, #0891b2, #374151);
+  background: linear-gradient(to bottom right, #000, #0890b262, #374151);
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 0.875rem;
   box-sizing: border-box; /* Add box-sizing */
   position: relative;
   overflow: hidden;
-  color: #fff;
+  color: #ffffff;
+  text-shadow: #000000;
   z-index: 1;
 }
 
@@ -623,7 +656,7 @@ h2 {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, #123844, #23ebebb9);
+  background: linear-gradient(45deg, #123844, #23ebeb1f);
   transition: left 0.5s ease;
   z-index: -1;
   animation: techBadgeAnimation 5s linear infinite;
@@ -976,7 +1009,14 @@ h2 {
     display: none; /* Initially hide social icons from the navbar */
   }
 
+  @media (max-width: 912px) {
+    .navbar-social{
+      margin-right: 80px;
+    }
+  }
+
   .navbar-links.active {
+    
     height: auto; /* Expand to fit content */
     display: flex; /* Ensure it's a flex container */
     flex-direction: column; /* Stack items vertically */
@@ -1007,4 +1047,67 @@ h2 {
   justify-content: center; /* Center the icons horizontally */
   align-items: center; /* Center the icons vertically */
   gap: 30px; /* Space between icons */
+}
+
+/* Media query for screens below 1125px */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none; /* Hide the navbar links */
+  }
+  .navbar-social {
+    display: none; /* Hide the social icons */
+  }
+  .hamburger-menu {
+    display: flex; /* Ensure the hamburger menu is visible */
+  }
+}
+
+
+  .navbar-links.active {
+    height: auto; /* Expand to fit content */
+    display: flex; /* Ensure it's a flex container */
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .hamburger-menu-links {
+    display: flex; /* Ensure it's a flex container */
+    flex-direction: row; /* Align items horizontally */
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
+    padding: 10px 0; /* Add some padding */
+  }
+
+  .hamburger-menu-links a {
+    color: white; /* Icon color */
+    margin: 0 10px; /* Space between icons */
+    font-size: 24px; /* Adjust icon size */
+  }
+
+  .navbar-links.active .hamburger-menu-links {
+    display: flex; /* Show the social icons when the menu is active */
+  }
+
+/* Coming Soon Badge Style */
+.coming-soon-badge {
+  background-color: #ffcc00; /* Bright yellow background */
+  color: #000; /* Black text color */
+  padding: 4px 8px; /* Padding for the badge */
+  border-radius: 12px; /* Rounded corners */
+  font-weight: bold; /* Bold text */
+  text-align: center; /* Center the text */
+  display: inline-block; /* Make it inline-block for proper spacing */
+  margin-top: 8px; /* Space above the badge */
+  margin-bottom: 8px; /* Space below the badge */
+  margin-right: 1em;
+}
+
+.hamburger-menu.active + .navbar-social {
+  margin-right: 0; /* Shift to the left when the hamburger menu is active */
+}
+
+/* Adjust the hero section for smaller screens */
+@media (max-width: 768px) {
+  .hero {
+    margin-top: 80px; /* Adjust this value based on your navbar height */
+  }
 }
