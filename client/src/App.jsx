@@ -40,53 +40,68 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log('Form Data:', formData);
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+        console.log('Form Data before sending:', formData);
+        
+        // Validate email format
+        const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+        if (!isValidEmail(formData.email)) {
+            toast.error('Please enter a valid email address.');
+            return;
+        }
 
-      if (response.ok) {
-        toast.success('Thank you for your message! I will get back to you soon.', {
-          position: "bottom-right",
-          autoClose: 5050,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
+        // Validate other fields
+        if (!formData.name || !formData.subject || !formData.message) {
+            toast.error('Please fill in all fields.');
+            return;
+        }
+
+        const response = await fetch('http://localhost:5043/api/Contact/Contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
         });
-        setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form data
-      } else {
-        toast.error('Failed to send message. Please try again later.', {
-          position: "bottom-right",
-          autoClose: 5050,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
+
+        if (response.ok) {
+            toast.success('Thank you for your message! I will get back to you soon.', {
+                position: "bottom-right",
+                autoClose: 5050,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form data
+        } else {
+            const errorData = await response.json();
+            toast.error(`Error: ${errorData.message}`, {
+                position: "bottom-right",
+                autoClose: 5050,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      toast.error('An error occurred. Please try again later.', {
-        position: "bottom-center",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+        console.error('Error submitting form:', error);
+        toast.error('An error occurred. Please try again later.', {
+            position: "bottom-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
-  };
+};
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
