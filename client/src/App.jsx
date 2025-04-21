@@ -15,13 +15,13 @@ import { FaDatabase } from "react-icons/fa";
 import { FaMobileAlt } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { FaCodeBranch } from "react-icons/fa";
-import school_management_system from './assets/school_task_management_application_dashboard.png';
 import mind_mapping_demo from './assets/mind_mapping_demo.png';
-import resume from './assets/Austin Chima - Resume.pdf'; // Import your resume file
+import resume from './assets/Austin Chima - Resume.pdf';
 import logo from './assets/personal-brand.png';
 import { Link} from 'react-scroll';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useInView } from './hooks/useInView';  // Add this import at the top
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -35,7 +35,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
   const [loading, setLoading] = useState(true);
- // State for fade-in effect
+  const [heroVisible, setHeroVisible] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -179,8 +179,18 @@ function App() {
     // Simulate loading time
     setTimeout(() => {
       setLoading(false);
+      // Add a small delay before showing the hero section
+      setTimeout(() => {
+        setHeroVisible(true);
+      }, 300);
     }, 2000); // Set loading to false after 2 seconds
   }, []);
+
+  // Create refs for each section
+  const [aboutRef, aboutIsVisible] = useInView();
+  const [skillsRef, skillsIsVisible] = useInView();
+  const [projectsRef, projectsIsVisible] = useInView();
+  const [contactRef, contactIsVisible] = useInView();
 
   return (
     <div className="app-container">
@@ -234,21 +244,25 @@ function App() {
           </nav>
 
           {/* Hero Section */}
-          <section id="home" className="hero">
+          <section id="home" className={`hero fade-in-section ${heroVisible ? 'is-visible' : ''}`}>
             <div className="hero-container">
               <div className="hero-text">
-                <img src={portrait} alt="Portrait" />
-                <h1>
+                <img 
+                  src={portrait} 
+                  alt="Portrait" 
+                  className={`fade-in-element ${heroVisible ? 'is-visible delay-100' : ''}`}
+                />
+                <h1 className={`fade-in-element ${heroVisible ? 'is-visible delay-200' : ''}`}>
                   Hi, I'm <span className="highlight">Austin Chima</span>
                 </h1>
               
-                <p className="hero-subtitle">
+                <p className={`hero-subtitle fade-in-element ${heroVisible ? 'is-visible delay-300' : ''}`}>
                   Software Engineering Student & Aspiring Full Stack Developer
                 </p>
-                <p className="hero-description">
+                <p className={`hero-description fade-in-element ${heroVisible ? 'is-visible delay-400' : ''}`}>
                   Transforming ideas into elegant, functional digital experiences with a passion for clean code and intuitive design.
                 </p>
-                <div className="hero-buttons">
+                <div className={`hero-buttons fade-in-element ${heroVisible ? 'is-visible delay-500' : ''}`}>
                   <Link to="contact" smooth={true} duration={500} className="btn">
                     Get in Touch
                   </Link>
@@ -261,46 +275,32 @@ function App() {
           </section>
 
           {/* About Section */}
-          <section id="about" className="about">
+          <section 
+            id="about" 
+            ref={aboutRef}
+            className={`fade-in-section ${aboutIsVisible ? 'is-visible' : ''}`}
+          >
             <div className="section-container">
               <h2>About Me</h2>
               <div className="about-content">
                 <div className="about-text">
                   <p>
-                    As an aspiring software engineer dedicated to crafting elegant, minimalistic web experiences. I thrive on the challenge of blending clean design with seamless functionality, always pushing myself to explore emerging technologies and refine my craft.
+                    I am a dedicated software engineer with a passion for creating elegant, efficient solutions. My expertise lies in full-stack development, where I combine clean design with robust functionality to deliver exceptional user experiences.
                   </p>
                   <p>
-                  When I'm not coding, I dive into the creative world of music. I sharpen my music production skills enjoy listening to melodic bass music within the EDM genre, a pursuit that fuels my creative energy and influences my approach to problem-solving. This unique fusion of technical expertise and artistic passion defines my journey and drives me to innovate with every project.
+                    With a strong foundation in both frontend and backend technologies, I specialize in building scalable applications that solve real-world problems. I am committed to writing maintainable code and following best practices to ensure the long-term success of every project.
                   </p>
-                </div>
-                <div className="about-interests">
-                  <div className="interest">
-                    <h3>Interests & Hobbies</h3>
-                    <ul>
-                      <li>
-                        <i className="fas fa-music">
-                          <span className="sr-only"><FaHeadphones/></span>
-                          </i> Music Production (EDM)
-                      </li>
-                      <li>
-                        <i className="fas fa-rocket">
-                        <span className="sr-only"><FaRocket /></span>
-                          </i> Exploring New Music Genres
-                      </li>
-                      <li>
-                        <i className="fas fa-laptop-code">
-                        <span className="sr-only"><FaLaptopCode /></span>
-                        </i> Learning New Technologies - to stay current
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Skills Section */}
-          <section id="skills" className="skills">
+          <section 
+            id="skills" 
+            ref={skillsRef}
+            className={`fade-in-section ${skillsIsVisible ? 'is-visible' : ''}`}
+          >
             <div className="section-container">
               <h2>Skills & Expertise</h2>
               <div className="skills-grid">
@@ -339,23 +339,27 @@ function App() {
           </section>
 
           {/* Projects Section */}
-          <section id="projects" className="projects">
+          <section 
+            id="projects" 
+            ref={projectsRef}
+            className={`fade-in-section ${projectsIsVisible ? 'is-visible' : ''}`}
+          >
             <div className="section-container">
               <h2>Featured Projects</h2>
               <div className="projects-grid">
                 {[
+                  // {
+                  //   title: 'School Management System',
+                  //   description: 'Online course management platform for students to manage deadlines and projects',
+                  //   image: school_management_system,
+                  //   tech: ['React', 'Node.js', 'MongoDB'],
+                  //   comingSoon: true
+                  // },
                   {
-                    title: 'School Management System',
-                    description: 'Online course management platform for students to manage deadlines and projects',
-                    image: school_management_system,
-                    tech: ['React', 'Node.js', 'MongoDB'],
-                    comingSoon: true
-                  },
-                  {
-                    title: 'Note Taking App with Mind-Mapping',
+                    title: 'NotesWork',
                     description: 'A note-taking application with the ability to convert notes to mind maps and vice versa.',
                     image: mind_mapping_demo,
-                    tech: ['React', 'C#', 'MongoDB'],
+                    tech: ['ASP.NET Core', 'C#', 'MongoDB'],
                     comingSoon: true
                   },
                   // {
@@ -394,38 +398,58 @@ function App() {
           </section>
 
           {/* Contact Section */}
-          <section id="contact" className="contact">
+          <section 
+            id="contact" 
+            ref={contactRef}
+            className={`fade-in-section ${contactIsVisible ? 'is-visible' : ''}`}
+          >
             <div className="section-container">
               <h2>Get in Touch</h2>
-              <div className="contact-form-container">
+              <div className={`contact-form-container ${contactIsVisible ? 'is-visible' : ''}`}>
                 <form onSubmit={handleSubmit}>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                  />
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                  <input
-                    type="text"
-                    placeholder="Subject"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    required
-                  />
-                  <textarea
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                  ></textarea>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      id="name"
+                      placeholder=" "
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                    />
+                    <label htmlFor="name">Your Name</label>
+                  </div>
+                  <div className="input-group">
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder=" "
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                    />
+                    <label htmlFor="email">Your Email</label>
+                  </div>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      id="subject"
+                      placeholder=" "
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      required
+                    />
+                    <label htmlFor="subject">Subject</label>
+                  </div>
+                  <div className="input-group">
+                    <textarea
+                      id="message"
+                      placeholder=" "
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      required
+                    ></textarea>
+                    <label htmlFor="message">Your Message</label>
+                  </div>
                   <button type="submit" className="btn">Send Message</button>
                 </form>
               </div>
