@@ -42,17 +42,20 @@ This portfolio showcases the work and skills of Austin Chima, a Software Enginee
 ### Frontend
 
 1. **Clone the repository:**
+
    ```bash
    git clone <repository-url>
    cd client
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Start the development server:**
+
    ```bash
    npm run dev
    ```
@@ -62,24 +65,29 @@ This portfolio showcases the work and skills of Austin Chima, a Software Enginee
 ### Backend
 
 1. **Navigate to the server directory:**
+
    ```bash
    cd server
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Create a `.env` file:**
    In the `server` directory, create a `.env` file and add the following environment variables:
+
    ```
    EMAIL_USER=<your-email-address>
    EMAIL_PASS=<your-email-password>
    ```
+
    Replace `<your-email-address>` and `<your-email-password>` with your actual email credentials.
 
 4. **Start the server:**
+
    ```bash
    node server.js
    ```
@@ -88,6 +96,7 @@ This portfolio showcases the work and skills of Austin Chima, a Software Enginee
 
 ## Folder Structure
 
+```
 austins_portfolio/
 ├── client/ # React frontend
 │ ├── src/ # Source code
@@ -108,8 +117,9 @@ austins_portfolio/
 ├── .gitignore # Specifies intentionally untracked files that Git should ignore
 ├── README.md # Project documentation
 └── ...
+```
 
-J## Environment Variables
+## Environment Variables
 
 The backend server uses the following environment variables:
 
@@ -118,9 +128,9 @@ The backend server uses the following environment variables:
 
 Make sure to set these variables in your `.env` file in the `api` directory.
 
-## Contributing
+<!-- ## Contributing
 
-This project is private, but I may consider accepting contributions to enhance features. If you're interested in helping with this or any other tasks, please reach out to me directly. Thank you ^‿^
+This project is private, but I may consider accepting contributions to enhance features. If you're interested in helping with this or any other tasks, please reach out to me directly. Thank you ^‿^ -->
 
 ## Author
 
