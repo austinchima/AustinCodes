@@ -40,8 +40,6 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        console.log('Form Data before sending:', formData);
-        
         // Validate email format
         const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
         if (!isValidEmail(formData.email)) {
@@ -55,7 +53,7 @@ function App() {
             return;
         }
 
-        const response = await fetch('http://localhost:5043/api/Contact/Contact', {
+        const response = await fetch('/.netlify/functions/contact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,7 +64,7 @@ function App() {
         if (response.ok) {
             toast.success('Thank you for your message! I will get back to you soon.', {
                 position: "bottom-right",
-                autoClose: 5050,
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -74,32 +72,14 @@ function App() {
                 progress: undefined,
                 theme: "dark",
             });
-            setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form data
+            setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
         } else {
             const errorData = await response.json();
-            toast.error(`Error: ${errorData.message}`, {
-                position: "bottom-right",
-                autoClose: 5050,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            toast.error(`Error: ${errorData.message}`);
         }
     } catch (error) {
         console.error('Error submitting form:', error);
-        toast.error('An error occurred. Please try again later.', {
-            position: "bottom-center",
-            autoClose: 10000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        });
+        toast.error('An error occurred. Please try again later.');
     }
 };
 
