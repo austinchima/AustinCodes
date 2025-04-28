@@ -249,9 +249,9 @@ function App() {
                     <Link to="contact" smooth={true} duration={500} className="btn">
                       Get in Touch
                     </Link>
-                    <a href={resume} className="btn-resume" download="Austin_Chima_Resume.pdf">
+                    {/* <a href={resume} className="btn-resume" download="Austin_Chima_Resume.pdf">
                       Download Resume
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
