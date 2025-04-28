@@ -479,7 +479,7 @@ function App() {
                     <span className="sr-only"><FaGithub /></span>
                   </i>
                 </a>
-                <a href="https://www.linkedin.com/in/austin-chima7364552/" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile">
+                <a href="https://linkedin.com/in/austin-chima-444883343" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile">
                   <i className="fab fa-linkedin"><FaLinkedin /></i>
                 </a>
                 {/* <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Twitter Profile">
