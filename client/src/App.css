@@ -265,9 +265,33 @@ body, .app-container {
 }
 
 .hero-text {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 40px;
   margin-bottom: 24px;
   box-sizing: border-box;
+}
+
+.hero-text-content {
+  flex: 1;
+  text-align: left;
+  order: 2; /* Move text content to the right */
+}
+
+.hero-text img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-sizing: border-box;
+  order: 1; /* Move image to the left */
+}
+
+.hero-text img:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
 .hero-text h1 {
@@ -275,20 +299,6 @@ body, .app-container {
   font-weight: bold;
   margin-bottom: 16px;
   word-break: break-word;
-}
-
-.hero-text img {
-  align-items: center;
-  width: 20%;
-  border-radius: 50%;
-  max-width: 150px;
-  box-sizing: border-box;
-}
-
-.hero-text img:hover {
-  transform: scale(1.3);
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
 }
 
 .hero-subtitle {
@@ -299,21 +309,31 @@ body, .app-container {
 
 .hero-description {
   color: #d1d5db;
-  margin-bottom: 40px; /* Increased margin to create more space */
+  margin-bottom: 40px;
   word-break: break-word;
 }
 
 .hero-buttons {
   display: flex;
-  gap: 20px; /* Space between buttons */
-  justify-content: center; /* Center buttons horizontally */
-  align-items: center; /* Center buttons vertically */
-  width: 100%; /* Ensure the container takes full width */
-  margin-top: 20px; /* Added margin to move buttons downward */
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 /* Media Queries for Hero Section */
 @media (max-width: 768px) {
+  .hero-text {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text-content {
+    text-align: center;
+    order: 2; /* Keep text below image on mobile */
+  }
+
   .hero-text h1 {
     font-size: 2rem;
   }
@@ -323,16 +343,19 @@ body, .app-container {
   }
 
   .hero-text img {
-    width: 40%;
+    order: 1; /* Keep image above text on mobile */
+    width: 200px;
+    height: 200px;
   }
 
   .hero-buttons {
-    flex-direction: column; /* Stack buttons vertically on smaller screens */
-    gap: 10px; /* Reduce gap between buttons */
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .hero {
-    margin-top: 80px; /* Adjust this value based on your navbar height */
+    margin-top: 80px;
   }
 }
 
@@ -346,7 +369,8 @@ body, .app-container {
   }
 
   .hero-text img {
-    width: 60%;
+    width: 150px;
+    height: 150px;
   }
 }
     

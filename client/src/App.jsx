@@ -176,14 +176,17 @@ function App() {
   };
 
   useEffect(() => {
-    // Simulate loading time
-    setTimeout(() => {
+    // Check if the document is already in a loaded state
+    if (document.readyState === 'complete') {
       setLoading(false);
-      // Add a small delay before showing the hero section
-      setTimeout(() => {
+      setHeroVisible(true);
+    } else {
+      // Set loading to false and show hero section when the page is ready
+      window.addEventListener('load', () => {
+        setLoading(false);
         setHeroVisible(true);
-      }, 300);
-    }, 2000); // Set loading to false after 2 seconds
+      });
+    }
   }, []);
 
   // Create refs for each section
@@ -235,7 +238,7 @@ function App() {
                   <a href="https://github.com/austinchima" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub Profile">
                     <FaGithub className="social-icon" />
                   </a>
-                  <a href="https://linkedin.com/in/austin-chima7364552/" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile">
+                  <a href="https://linkedin.com/in/austin-chima-444883343" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn Profile">
                     <FaLinkedin className="social-icon" />
                   </a>
                 </div>
@@ -252,23 +255,24 @@ function App() {
                   alt="Portrait" 
                   className={`fade-in-element ${heroVisible ? 'is-visible delay-100' : ''}`}
                 />
-                <h1 className={`fade-in-element ${heroVisible ? 'is-visible delay-200' : ''}`}>
-                  Hi, I'm <span className="highlight">Austin Chima</span>
-                </h1>
-              
-                <p className={`hero-subtitle fade-in-element ${heroVisible ? 'is-visible delay-300' : ''}`}>
-                  Software Engineering Student & Aspiring Full Stack Developer
-                </p>
-                <p className={`hero-description fade-in-element ${heroVisible ? 'is-visible delay-400' : ''}`}>
-                  Transforming ideas into elegant, functional digital experiences with a passion for clean code and intuitive design.
-                </p>
-                <div className={`hero-buttons fade-in-element ${heroVisible ? 'is-visible delay-500' : ''}`}>
-                  <Link to="contact" smooth={true} duration={500} className="btn">
-                    Get in Touch
-                  </Link>
-                  <a href={resume} className="btn-resume" download="Austin_Chima_Resume.pdf">
-                    Download Resume
-                  </a>
+                <div className="hero-text-content">
+                  <h1 className={`fade-in-element ${heroVisible ? 'is-visible delay-200' : ''}`}>
+                    Hi, I'm <span className="highlight">Austin Chima</span>
+                  </h1>
+                  <p className={`hero-subtitle fade-in-element ${heroVisible ? 'is-visible delay-300' : ''}`}>
+                    Full Stack Software Engineer
+                  </p>
+                  <p className={`hero-description fade-in-element ${heroVisible ? 'is-visible delay-400' : ''}`}>
+                    Transforming ideas into elegant, functional digital experiences with a passion for clean code and intuitive design.
+                  </p>
+                  <div className={`hero-buttons fade-in-element ${heroVisible ? 'is-visible delay-500' : ''}`}>
+                    <Link to="contact" smooth={true} duration={500} className="btn">
+                      Get in Touch
+                    </Link>
+                    <a href={resume} className="btn-resume" download="Austin_Chima_Resume.pdf">
+                      Download Resume
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -307,15 +311,15 @@ function App() {
                 {[
                   { name: 'Frontend Development', icons: [FaReact], items: ['HTML, CSS', 'JavaScript','React'] },
 
-                  { name: 'Backend Development', icons: [FaServer], items: ['Node.js', 'Express.js'] },
+                  { name: 'Backend Development', icons: [FaServer], items: ['Node.js'] },
                   
-                  { name: 'Database', icons: [FaDatabase, SiMongodb], items: ['MongoDB', 'Oracle'] },
+                  { name: 'Database', icons: [ SiMongodb], items: ['MongoDB'] },
 
-                  { name: 'Mobile Development', icons: [FaMobileAlt], items: ['Kotlin', 'Jetpack Compose', 'React'] },
+                  { name: 'Mobile Development', icons: [FaMobileAlt], items: ['Kotlin', 'Jetpack Compose'] },
 
                   { name: 'Version Control', icons: [FaCodeBranch], items: ['Git', 'GitHub'] },
 
-                  { name: 'Desktop Development', icons: [FaDesktop], items: ['․NET', 'C#','Java'] },
+                  { name: 'Desktop Development', icons: [FaDesktop], items: ['.NET', 'C#'] },
 
                   { name: 'Development Tools', icons: [FaTools], items: ['Visual Studio', 'VS Code', 'Cursor', 'Copilot'] },
 
@@ -356,10 +360,10 @@ function App() {
                   //   comingSoon: true
                   // },
                   {
-                    title: 'NotesWork',
-                    description: 'A note-taking application with the ability to convert notes to mind maps and vice versa.',
-                    image: mind_mapping_demo,
-                    tech: ['ASP.NET Core', 'C#', 'MongoDB'],
+                    title: 'Cyber Guard Collective: Multi-Agent Threat Detection Platform',
+                    description: 'Develop a cooperative swarm of lightweight AI agents for continuous, real-time network threat detection (anomalies, intrusions, malware). Agents monitor diverse data sources, share insights, and adapt using multi-agent reinforcement learning. The MVP will scan logs, flag patterns, and autonomously respond to threats.',
+                    // image: mind_mapping_demo,
+                    tech: ['Python', 'React', 'MongoDB'],
                     comingSoon: true
                   },
                   // {
