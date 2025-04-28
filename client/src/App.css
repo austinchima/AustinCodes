@@ -1037,7 +1037,7 @@ h2 {
   }
 
   .contact {
-    padding: 60px 0; /* Slightly reduced padding for mobile */
+    padding: 60px 20px; /* Add horizontal padding for mobile */
   }
 }
 
@@ -1049,6 +1049,43 @@ h2 {
   h2 {
     font-size: 1.75rem; /* Even smaller heading on very small screens */
     margin-bottom: 16px;
+  }
+  /* Ensure contact section padding is minimal on very small screens */
+  .contact {
+    padding: 40px 10px; /* Reverted excessive horizontal padding */
+  }
+}
+
+/* Add this media query for contact form responsiveness */
+@media (max-width: 640px) {
+  .contact-form-container {
+    /* Ensure it takes full width available within padding */
+    width: 100%;
+    padding: 0 10px; /* Add some horizontal padding inside the container */
+    box-sizing: border-box; /* Ensure padding is included in width */
+  }
+
+  .contact-form-container input,
+  .contact-form-container textarea {
+    padding: 14px 10px; /* Slightly reduce padding */
+    font-size: 1rem; /* Slightly reduce font size */
+  }
+
+  .contact-form-container label {
+    font-size: 1rem; /* Adjust label font size */
+    left: 10px; /* Match input padding */
+  }
+
+  .contact-form-container textarea + label {
+    top: 14px; /* Adjust textarea label position */
+  }
+
+  .contact-form-container input:focus + label,
+  .contact-form-container textarea:focus + label,
+  .contact-form-container input:not(:placeholder-shown) + label,
+  .contact-form-container textarea:not(:placeholder-shown) + label {
+    font-size: 0.8rem; /* Adjust focused/filled label font size */
+    padding: 0 6px; /* Adjust padding */
   }
 }
 

@@ -37,6 +37,33 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [heroVisible, setHeroVisible] = useState(false);
 
+  // Remove fade-in state
+  // const [aboutHasFadedIn, setAboutHasFadedIn] = useState(false);
+  // const [skillsHasFadedIn, setSkillsHasFadedIn] = useState(false);
+  // const [projectsHasFadedIn, setProjectsHasFadedIn] = useState(false);
+  // const [contactHasFadedIn, setContactHasFadedIn] = useState(false);
+
+  // Remove scroll direction tracking
+  // const [lastScrollY, setLastScrollY] = useState(0);
+  // const [isScrollingUp, setIsScrollingUp] = useState(false);
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    // setIsScrollingUp(currentScrollY < lastScrollY);
+    // setLastScrollY(currentScrollY);
+
+    // Existing active section logic
+    sections.forEach(section => {
+      const element = document.getElementById(section);
+      if (element) {
+        const { offsetTop, offsetHeight } = element;
+        if (currentScrollY >= offsetTop - 100 && currentScrollY < offsetTop + offsetHeight - 100) {
+          setActiveSection(section);
+        }
+      }
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -83,66 +110,81 @@ function App() {
     }
 };
 
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-    sections.forEach(section => {
-      const element = document.getElementById(section);
-      if (element) {
-        const { offsetTop, offsetHeight } = element;
-        if (scrollPosition >= offsetTop - 100 && scrollPosition < offsetTop + offsetHeight - 100) {
-          setActiveSection(section);
-        }
-      }
-    });
-  };
-
   useEffect(() => {
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth <= 768);
     };
 
-    window.addEventListener('resize', checkScreenSize); // Update on resize
+    window.addEventListener('resize', checkScreenSize);
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('resize', checkScreenSize);
       window.removeEventListener('scroll', handleScroll);
     };
-  },);
+  }, []);
+
+  // Remove useInView and fade-in logic
+  // const [aboutRef, aboutIsVisible] = useInView({ triggerOnce: false });
+  // const [skillsRef, skillsIsVisible] = useInView({ triggerOnce: false });
+  // const [projectsRef, projectsIsVisible] = useInView({ triggerOnce: false });
+  // const [contactRef, contactIsVisible] = useInView({ triggerOnce: false });
+
+  // Remove fade-in effects
+  // useEffect(() => {
+  //   if (aboutIsVisible && isScrollingUp && !aboutHasFadedIn) {
+  //     setAboutHasFadedIn(true);
+  //   }
+  // }, [aboutIsVisible, isScrollingUp]);
+  // useEffect(() => {
+  //   if (skillsIsVisible && isScrollingUp && !skillsHasFadedIn) {
+  //     setSkillsHasFadedIn(true);
+  //   }
+  // }, [skillsIsVisible, isScrollingUp]);
+  // useEffect(() => {
+  //   if (projectsIsVisible && isScrollingUp && !projectsHasFadedIn) {
+  //     setProjectsHasFadedIn(true);
+  //   }
+  // }, [projectsIsVisible, isScrollingUp]);
+  // useEffect(() => {
+  //   if (contactIsVisible && isScrollingUp && !contactHasFadedIn) {
+  //     setContactHasFadedIn(true);
+  //   }
+  // }, [contactIsVisible, isScrollingUp]);
+
+  const handleKeyDown = (event) => {
+    if (event.ctrlKey && event.altKey) {
+      let sectionId = '';
+      switch (event.key) {
+
+        case 'h'.toLowerCase():
+            sectionId = 'home';
+            break;
+        case 'a'.toLowerCase():
+            sectionId = 'about';
+            break;
+        case 'p'.toLowerCase():
+            sectionId = 'projects';
+            break;
+        case 's'.toLowerCase():
+            sectionId = 'skills';
+            break;
+        case 'c'.toLowerCase():
+            sectionId = 'contact';
+          break;
+        default:
+          return; // Exit if the key is not one of the specified ones
+      }
+
+      // Scroll to the specified section
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.ctrlKey && event.altKey) {
-        let sectionId = '';
-        switch (event.key) {
-
-          case 'h'.toLowerCase():
-              sectionId = 'home';
-              break;
-          case 'a'.toLowerCase():
-              sectionId = 'about';
-              break;
-          case 'p'.toLowerCase():
-              sectionId = 'projects';
-              break;
-          case 's'.toLowerCase():
-              sectionId = 'skills';
-              break;
-          case 'c'.toLowerCase():
-              sectionId = 'contact';
-            break;
-          default:
-            return; // Exit if the key is not one of the specified ones
-        }
-
-        // Scroll to the specified section
-        const section = document.getElementById(sectionId);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    };
-
     window.addEventListener('keydown', handleKeyDown);
 
     // Cleanup the event listener on component unmount
@@ -168,12 +210,6 @@ function App() {
       });
     }
   }, []);
-
-  // Create refs for each section
-  const [aboutRef, aboutIsVisible] = useInView();
-  const [skillsRef, skillsIsVisible] = useInView();
-  const [projectsRef, projectsIsVisible] = useInView();
-  const [contactRef, contactIsVisible] = useInView();
 
   return (
     <div className="app-container">
@@ -227,25 +263,24 @@ function App() {
           </nav>
 
           {/* Hero Section */}
-          <section id="home" className={`hero fade-in-section ${heroVisible ? 'is-visible' : ''}`}>
+          <section id="home" className="hero">
             <div className="hero-container">
               <div className="hero-text">
                 <img 
                   src={portrait} 
                   alt="Portrait" 
-                  className={`fade-in-element ${heroVisible ? 'is-visible delay-100' : ''}`}
                 />
                 <div className="hero-text-content">
-                  <h1 className={`fade-in-element ${heroVisible ? 'is-visible delay-200' : ''}`}>
+                  <h1>
                     Hi, I'm <span className="highlight">Austin Chima</span>
                   </h1>
-                  <p className={`hero-subtitle fade-in-element ${heroVisible ? 'is-visible delay-300' : ''}`}>
+                  <p className="hero-subtitle">
                     Full Stack Software Engineer
                   </p>
-                  <p className={`hero-description fade-in-element ${heroVisible ? 'is-visible delay-400' : ''}`}>
+                  <p className="hero-description">
                     Transforming ideas into elegant, functional digital experiences with a passion for clean code and intuitive design.
                   </p>
-                  <div className={`hero-buttons fade-in-element ${heroVisible ? 'is-visible delay-500' : ''}`}>
+                  <div className="hero-buttons">
                     <Link to="contact" smooth={true} duration={500} className="btn">
                       Get in Touch
                     </Link>
@@ -260,9 +295,7 @@ function App() {
 
           {/* About Section */}
           <section 
-            id="about" 
-            ref={aboutRef}
-            className={`fade-in-section ${aboutIsVisible ? 'is-visible' : ''}`}
+            id="about"
           >
             <div className="section-container">
               <h2>About Me</h2>
@@ -281,9 +314,7 @@ function App() {
 
           {/* Skills Section */}
           <section 
-            id="skills" 
-            ref={skillsRef}
-            className={`fade-in-section ${skillsIsVisible ? 'is-visible' : ''}`}
+            id="skills"
           >
             <div className="section-container">
               <h2>Skills & Expertise</h2>
@@ -324,9 +355,7 @@ function App() {
 
           {/* Projects Section */}
           <section 
-            id="projects" 
-            ref={projectsRef}
-            className={`fade-in-section ${projectsIsVisible ? 'is-visible' : ''}`}
+            id="projects"
           >
             <div className="section-container">
               <h2>Featured Projects</h2>
@@ -383,13 +412,11 @@ function App() {
 
           {/* Contact Section */}
           <section 
-            id="contact" 
-            ref={contactRef}
-            className={`fade-in-section ${contactIsVisible ? 'is-visible' : ''}`}
+            id="contact"
           >
             <div className="section-container">
               <h2>Get in Touch</h2>
-              <div className={`contact-form-container ${contactIsVisible ? 'is-visible' : ''}`}>
+              <div className="contact-form-container is-visible">
                 <form onSubmit={handleSubmit}>
                   <div className="input-group">
                     <input
